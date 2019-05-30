@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Switch from "react-switch";
 
@@ -42,14 +41,31 @@ class App extends React.Component {
 
     const switches = ["switchOne", "switchTwo", "switchThree"].filter(x => x !== key);
 
-    console.log(switches);
+    if (!v) {
+      this.setState({
+        [key]: v,
+        [switches[0]]: true ,
+        [switches[1]]: true 
+        });
 
-    this.setState({
-      [key]: v,
-      [switches[0]]: this.state[switches[0]],
-      [switches[0]]: !this.state[switches[0]]
-      });
+    } else {
+      this.shuffleArray(switches);
+  
+      this.setState({
+        [key]: v,
+        [switches[0]]: this.state[switches[0]],
+        [switches[1]]: !this.state[switches[1]]
+        });
     }
+    
+    }
+
+    shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+      }
+  }
  
 }
 
